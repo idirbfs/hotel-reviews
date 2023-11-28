@@ -69,7 +69,7 @@
           class='row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3'
           style='margin-bottom: 10px;'
         >
-          {{#each datas}}
+          {{#each hotels}}
             <div class='col'>
               <div
                 class='card h-100'
@@ -89,12 +89,12 @@
                     </div>
                     <div class='col-3' style='text-align: right;'><span
                         style='color: var(--bs-green);'
-                      ><strong>{{this.prix}}€</strong></span></div>
+                      ><strong>{{this.price}}€</strong></span></div>
                   </div>
                   <div class='row'>
                     <div class='col-10 col-xl-8'>
                       <h6 class='text-muted mb-2'>Hotel de tourisme
-                        {{this.etoiles}}
+                        {{this.stars}}
                         étoiles</h6>
                     </div>
                     <div class='col-2 col-xl-4' style='text-align: right;'><span
@@ -113,7 +113,7 @@
                           </svg>
                           ({{this.nb_avis}})</strong></span></div>
                   </div>
-                  <p class='card-text'>{{this.adresse}}</p>
+                  <p class='card-text'>{{this.adress}}</p>
                 </div>
               </div>
             </div>

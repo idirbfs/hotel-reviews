@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Param, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -13,6 +13,19 @@ export class AppController {
 
   @Get('insert')
   async insertData() {
-    await this.appService.insertData();
+    // await this.appService.getFromDb();
+    // await this.appService.insertDataFromCsv();
+    await this.appService.insertReviewsFromCsv();
+
+    // console.log('====================================');
+    // console.log(await this.appService.fetchDecision('this hotel is good'));
+    // console.log('====================================');
+  }
+
+  @Render('details')
+  @Get('hotel/:id')
+  async getHotelDetails(@Param('id') id: number) {
+    const hotel = this.appService.getHotelDetails(id);
+    return hotel;
   }
 }

@@ -12,11 +12,13 @@ import { Hotel } from './hotel.model';
 export class Review extends Model {
   @Column(DataType.STRING)
   text: string;
+  @Column(DataType.STRING)
+  decision: string;
 
   @Column(DataType.STRING)
   reviewer: string;
 
-  @Column(DataType.INTEGER)
+  @Column(DataType.STRING)
   reviewer_nationality: number;
 
   @Column(DataType.DATE)
