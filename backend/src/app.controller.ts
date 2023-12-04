@@ -15,8 +15,7 @@ export class AppController {
   async insertData() {
     // await this.appService.getFromDb();
     // await this.appService.insertDataFromCsv();
-    await this.appService.insertReviewsFromCsv();
-
+    //await this.appService.insertReviewsFromCsv();
     // console.log('====================================');
     // console.log(await this.appService.fetchDecision('this hotel is good'));
     // console.log('====================================');

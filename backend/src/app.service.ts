@@ -209,7 +209,7 @@ export class AppService {
   }
 
   async getHotelDetails(id: number) {
-    const hotel = await Hotel.findOne({ where: { id: id } });
+    const hotel = await Hotel.findOne({ where: { id: id }, include: [Review] });
     return { hotel };
   }
 
