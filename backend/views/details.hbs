@@ -7,11 +7,31 @@
       content='width=device-width, initial-scale=1.0, shrink-to-fit=no'
     />
     <title>Hotel Detail Interface</title>
-    <link rel='stylesheet' href='assets/bootstrap/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/assets/bootstrap/css/bootstrap.min.css' />
+ 
+  
+
     <link
       rel='stylesheet'
       href='https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap'
     />
+    
+
+      <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApeXWJE5MSQ8mapOkNOgitzfOxhgiOm_o&callback=initMap' async defer></script>
+  <script>
+    function initMap() {
+      const hotelLocation = { lat: {{hotel.latitude}}, lng: {{hotel.longitude}} };
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: hotelLocation,
+        zoom: 15,
+      });
+      const marker = new google.maps.Marker({
+        position: hotelLocation,
+        map: map,
+        title: '{{hotel.name}}',
+      });
+    }
+  </script>
   </head>
 
   <body>
@@ -45,7 +65,7 @@
     <div class='container pt-5'>
       <div class='row pt-5'>
         <div class='col-md-6'>
-          <h2 style='font-weight:bold;'>{{hotel.name}}</h2>
+          <h2 style='font-weight:bold;'></h2>
           <p class='rating'>Rating: 4.5</p>
           <p class='rating'>Number of Ratings: 120</p>
         </div>
@@ -82,7 +102,7 @@
           <div class='card mb-3'>
             <div class='card-body'>
               <h5 class='card-title'>Hotel Details</h5>
-              <p class='card-text'>Adress: {{hotel.adress}}</p>
+              <p class='card-text'>Adress:</p>
               <p class='card-text'>Price: $150 per night</p>
               <p class='card-text'>Room Type: Deluxe Suite</p>
               <p class='card-text'>Availability: Available</p><button
@@ -172,15 +192,7 @@
           <div class='card'>
             <div class='card-body'>
               <h5 class='card-title'>Hotel Map</h5>
-              <div class='map-holder'>
-                <iframe
-                  src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.897659522527!2d{{hotel.longitude}}!3d{{hotel.latitude}}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sEiffel%20Tower!5e0!3m2!1sen!2sus!4v1637041029983!5m2!1sen!2sus'
-                  width='100%'
-                  height='300'
-                  style='border:0;'
-                  allowfullscreen=''
-                ></iframe>
-              </div>
+               <div id='map' style='height: 300px;'></div>
 
             </div>
           </div>
