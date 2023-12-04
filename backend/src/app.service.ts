@@ -18,8 +18,23 @@ export class AppService {
   ) {}
 
   async getHello() {
-    const hotels = await Hotel.findAll();
-    return { hotels };
+    const hotelsWithReviews = await Hotel.findAll({ include: [Review] });
+
+    // Calcul du pourcentage des commentaires positifs pour chaque hôtel
+    const hotelsWithPercentage = hotelsWithReviews.map((hotel) => {
+      const positiveReviews = hotel.reviews.filter(
+        (review) => review.decision === 'Positive',
+      );
+      const percentage =
+        (positiveReviews.length / hotel.reviews.length) * 100 || 0;
+
+      return {
+        ...hotel.toJSON(),
+        percentagePositiveReviews: percentage,
+      };
+    });
+
+    return { hotelsWithPercentage };
   }
 
   async insertData() {
@@ -210,6 +225,7 @@ export class AppService {
 
   async getHotelDetails(id: number) {
     const hotel = await Hotel.findOne({ where: { id: id }, include: [Review] });
+
     return { hotel };
   }
 
