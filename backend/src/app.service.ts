@@ -17,7 +17,7 @@ export class AppService {
     private sequelize: Sequelize,
   ) {}
 
-  async getHello() {
+  async getHotels() {
     const hotelsWithReviews = await Hotel.findAll({ include: [Review] });
 
     // Calcul du pourcentage des commentaires positifs pour chaque hôtel
@@ -25,16 +25,20 @@ export class AppService {
       const positiveReviews = hotel.reviews.filter(
         (review) => review.decision === 'Positive',
       );
-      const percentage =
-        (positiveReviews.length / hotel.reviews.length) * 100 || 0;
+      const percentage = parseFloat(
+        ((positiveReviews.length / hotel.reviews.length) * 100 || 0).toFixed(1),
+      );
+
+      const status = percentage > 50 ? 'text-success' : 'text-danger';
 
       return {
         ...hotel.toJSON(),
         percentagePositiveReviews: percentage,
+        reviewStatus: status,
       };
     });
 
-    return { hotelsWithPercentage };
+    return { hotels: hotelsWithPercentage };
   }
 
   async insertData() {
@@ -48,7 +52,7 @@ export class AppService {
       });
     });
   }
-  async insertDataFromCsv() {
+  async insertHotelsFromCsv() {
     const filePath = path.resolve(__dirname, '../../dataset/dataset.csv');
     const stream = createReadStream(filePath);
     const hotelsData = [];
@@ -223,12 +227,24 @@ export class AppService {
     return newDate;
   }
 
+  // async getHotelDetails(id: number) {
+  //   const hotel = await Hotel.findOne({ where: { id: id }, include: [Review] });
+
+  //   return { hotel };
+  // }
+
   async getHotelDetails(id: number) {
     const hotel = await Hotel.findOne({ where: { id: id }, include: [Review] });
 
-    return { hotel };
-  }
+    const positiveReview = hotel.reviews.find(
+      (review) => review.decision === 'Positive',
+    );
+    const negativeReview = hotel.reviews.find(
+      (review) => review.decision === 'Negative',
+    );
 
+    return { hotel, positiveReview, negativeReview };
+  }
   async fetchDecision(review) {
     const decision = await axios.post(
       'http://localhost:5000/analyze_sentiment',

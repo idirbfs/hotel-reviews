@@ -8,28 +8,26 @@
     />
     <title>Hotel Detail Interface</title>
     <link rel='stylesheet' href='/assets/bootstrap/css/bootstrap.min.css' />
- 
+
     <link
       rel='stylesheet'
       href='https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap'
     />
-    
 
-      <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApeXWJE5MSQ8mapOkNOgitzfOxhgiOm_o&callback=initMap' async defer></script>
-  <script>
-    function initMap() {
-      const hotelLocation = { lat: {{hotel.latitude}}, lng: {{hotel.longitude}} };
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: hotelLocation,
-        zoom: 15,
-      });
-      const marker = new google.maps.Marker({
-        position: hotelLocation,
-        map: map,
-        title: '{{hotel.name}}',
-      });
-    }
-  </script>
+    <script
+      src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApeXWJE5MSQ8mapOkNOgitzfOxhgiOm_o&callback=initMap'
+      async
+      defer
+    ></script>
+    <script>
+      function initMap() { const hotelLocation = { lat:
+      {{hotel.latitude}}, lng:
+      {{hotel.longitude}}
+      }; const map = new google.maps.Map(document.getElementById('map'), {
+      center: hotelLocation, zoom: 15, }); const marker = new
+      google.maps.Marker({ position: hotelLocation, map: map, title: '{{hotel.name}}',
+      }); }
+    </script>
   </head>
 
   <body>
@@ -68,35 +66,23 @@
           <p class='rating'>Number of Ratings: 120</p>
         </div>
         <div class='col-md-6 text-end'>
-          <p style='font-style:italic;color:#888;'>Paris - November 2023</p>
+          <p style='font-style:italic;color:#888;'>Paris - December 2023</p>
         </div>
       </div>
     </div>
     <div class='container mt-5'>
-      <div class='row mb-3-custom'>
-        <div class='col-md-12 scroller'>
-          <div
-            class='carousel slide'
-            data-bs-ride='carousel'
-            id='imageCarousel'
-          >
-            <div class='carousel-inner'>
-              <div class='carousel-item active'><img
-                  class='w-100 d-block w-100'
-                  alt='Image 1'
-                  src='1407953244000-177513283.webp'
-                /></div>
-              <div class='carousel-item'><img
-                  class='w-100 d-block w-100'
-                  alt='Image 2'
-                  src='Sans titre.jpeg'
-                /></div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class='row mb-3-custom'>
         <div class='col-md-6 order-md-2'>
+          <div class='card'>
+            <div class='card-body'>
+              <img
+                class='w-100 d-block mx-auto'
+                alt='Image 1'
+                src={{hotel.url_photo}}
+              />
+            </div>
+          </div>
           <div class='card mb-3'>
             <div class='card-body'>
               <h5 class='card-title'>Hotel Details</h5>
@@ -108,6 +94,7 @@
               >Show All</button>
             </div>
           </div>
+
           <div class='card'>
             <div class='card-body'>
               <h5 class='card-title'>Hotel Facilities</h5>
@@ -137,15 +124,23 @@
               <h5 class='card-title'>Hotel Reviews</h5>
               <div class='card mb-3'>
                 <div class='card-body'>
+                  <h4 class='text-success'>Positive review</h4>
                   <p class='card-text'>
-                    Positive review from satisfied guest
+                    {{! Positive review from satisfied guest }}
+                    {{positiveReview.text}}
                     <i class='text-success bi bi-check'></i></p>
                 </div>
               </div>
               <div class='card mb-3'>
                 <div class='card-body'>
+                  <h4 class='text-danger'>Negative review</h4>
                   <p class='card-text'>
-                    Negative review from dissatisfied guest
+                    {{negativeReview.text}}
+                    {{! Breakfast is not too good extra charge for fried eggs Food
+                    in the lounge is not frequently replenished and the floor
+                    was wet with water from the fridge when we went there one of
+                    the afternoons }}
+
                     <i class='text-danger bi bi-x'></i></p>
                 </div>
               </div>
@@ -190,7 +185,7 @@
           <div class='card'>
             <div class='card-body'>
               <h5 class='card-title'>Hotel Map</h5>
-               <div id='map' style='height: 300px;'></div>
+              <div id='map' style='height: 300px;'></div>
 
             </div>
           </div>
